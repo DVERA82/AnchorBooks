@@ -6,8 +6,8 @@ import retrofit2.http.Path
 
 interface ApiBooks {
     @GET ("books")
-    suspend fun fetchAnchorBooksList(): Response<ResponseAnchorBooks>
+    suspend fun fetchAnchorBooks(): Response<ResponseAnchorBooks>
 
     @GET ("bookDetail/{id}")
-    suspend fun fetchBookDetail(@Path("id")id:Int): Response<ResponseAnchorBooks>
+    suspend fun fetchBookDetail(@Path("id")id:Int): Response<BooksDetail>
 }
