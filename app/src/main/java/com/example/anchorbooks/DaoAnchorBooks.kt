@@ -7,7 +7,7 @@ import androidx.room.Query
 
 interface DaoAnchorBooks {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun InsertAllDaoAnchorBook(list: List<AnchorBooks>)
+    suspend fun InsertAllDaoAnchorBooks(list: List<AnchorBooks>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun InsertBooksDetail(list: List<BooksDetail>)

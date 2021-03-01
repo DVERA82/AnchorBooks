@@ -9,5 +9,5 @@ interface ApiBooks {
     suspend fun fetchAnchorBooks(): Response<ResponseAnchorBooks>
 
     @GET ("bookDetail/{id}")
-    suspend fun fetchBookDetail(@Path("id")id:Int): Response<BooksDetail>
+    suspend fun fetchBookDetail(@Path("id")id:Int): Response<ResponseBookDetail>
 }

@@ -21,27 +21,27 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
     }
 
 
-    fun converterDetailBooks(BookDetail: List<DataClassDetail>, booksDetail: Int)
-            : List<BooksDetail> {
-        val listBooksDetail = mutableListOf<BooksDetail>()
-        listBooksDetail.map {
+    fun converterDetailBooks(id: Int,author:String,country:String,imageLink:String,language:String,
+                             link:String,pages:Int, title:String,year:Int,price:Int,lastPrice:Int,
+                             delivery:Boolean): List<BooksDetail> {
+        val listBooksDetail:MutableList<BooksDetail>  = mutableListOf()
             listBooksDetail.add(
                 BooksDetail(
-                    id = booksDetail,
-                    author = it.author,
-                    country = it.country,
-                    imageLink = it.imageLink,
-                    language = it.language,
-                    link = it.link,
-                    pages = it.pages,
-                    title = it.title,
-                    year = it.year,
-                    price = it.price,
-                    lastPrice = it.lastPrice,
-                    delivery = it.delivery))
+                    id = id,
+                    author = author,
+                    country = country,
+                    imageLink = imageLink,
+                    language = language,
+                    link = link,
+                    pages = pages,
+                    title = title,
+                    year = year,
+                    price = price,
+                    lastPrice = lastPrice,
+                    delivery = delivery))
 
 
-        }
+
         return listBooksDetail
     }
     suspend fun getBooksWithCoroutines() {
@@ -50,7 +50,7 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
             val response = RetrofitAnchorBooks.retrofitInstance().fetchAnchorBooks()
             when (response.isSuccessful) {
                 true -> response.body()?.let {
-                    dao.InsertAllDaoAnchorBook(converter(it.list))
+                    dao.InsertAllDaoAnchorBooks(converter(it.list))
                 }
 
                 false -> Log.d("ERROR", " ${response.code()} : ${response.errorBody()}")
@@ -62,14 +62,14 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
 
     }
 
-    suspend fun getbookDetail(id: Int) {
+    suspend fun getBookDetail(id: Int) {
 
         try {
             val response = RetrofitAnchorBooks.retrofitInstance().fetchBookDetail(id)
             when (response.isSuccessful) {
                 true -> response.body()?.let {
-                    //Log.d("repo","$(it)")
-                    dao.InsertBooksDetail(converterDetailBooks(it.id,))
+                    dao.InsertBooksDetail(converterDetailBooks(id,it.author,it.country,it.imageLink,
+                        it.language,it.link,it.pages,it.title,it.year,it.price,it.lastPrice,it.delivery))
                 }
                 false -> Log.d("ERROR", " ${response.code()} : ${response.errorBody()}")
             }
@@ -81,7 +81,7 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
 
     }
 
-    fun getBooksBD(id: String): LiveData<List<BooksDetail>> {
+    fun getBooksDB(id: Int): LiveData<List<BooksDetail>> {
         return dao.getBookDetail(id)
     }
 
