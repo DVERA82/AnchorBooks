@@ -13,12 +13,12 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
             listAnchorBooks.add(
                 AnchorBooks(
                     id = it.id, author = it.author, country = it.country,
-                    imageLink = it.imageLink, language = it.language, title = it.title
-                )
-            )
+                    imageLink = it.imageLink, language = it.language, title = it.title,favourite= it.favourite))
         }
         return listAnchorBooks
     }
+
+
 
 
     fun converterDetailBooks(id: Int,author:String,country:String,imageLink:String,language:String,
@@ -38,12 +38,12 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
                     year = year,
                     price = price,
                     lastPrice = lastPrice,
-                    delivery = delivery))
+                    delivery = delivery)
 
-
+            )
 
         return listBooksDetail
-    }
+}
     suspend fun getBooksWithCoroutines() {
         Log.d("REPOSITORY", "UTILIZANDO COROUTINES")
         try {
@@ -84,7 +84,9 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
     fun getBooksDB(id: Int): LiveData<List<BooksDetail>> {
         return dao.getBookDetail(id)
     }
-
+    suspend fun updateFavouriteBooks(anchorBooks: AnchorBooks) {
+        dao.updateAnchorBooks(anchorBooks)
+    }
 
 }
 

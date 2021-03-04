@@ -1,12 +1,11 @@
 package com.example.anchorbooks
 
 import androidx.lifecycle.LiveData
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
+@Dao
 interface DaoAnchorBooks {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun InsertAllDaoAnchorBooks(list: List<AnchorBooks>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,4 +17,7 @@ interface DaoAnchorBooks {
 
     @Query("SELECT * FROM detail_table WHERE id = :id")
     fun getBookDetail(id:Int) :LiveData<List<BooksDetail>>
+
+    @Update
+    suspend fun updateAnchorBooks(anchorBooks: AnchorBooks)
 }

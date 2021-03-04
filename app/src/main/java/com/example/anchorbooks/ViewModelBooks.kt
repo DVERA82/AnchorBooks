@@ -24,6 +24,10 @@ class ViewModelBooks  (application: Application)  : AndroidViewModel(application
 
     fun getBooksDetail(id: Int)= viewModelScope.launch {
         repository.getBookDetail(id)
+        }
+    fun updateFavouriteBooks(anchorBooks: AnchorBooks) = viewModelScope.launch {
+        repository.updateFavouriteBooks(anchorBooks)
+
     }
 
 }

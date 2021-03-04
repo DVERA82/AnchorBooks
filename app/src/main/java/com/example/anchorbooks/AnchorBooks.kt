@@ -16,4 +16,6 @@ data class AnchorBooks(@SerializedName ("id")
                        @SerializedName("language")
                        val language: String,
                        @SerializedName("title")
-                       val title: String)
+                       val title: String,
+                       @SerializedName("favourite")
+                       var favourite: Boolean)

@@ -6,4 +6,4 @@ data class DataClassBooks(val id: Int,
                           val imageLink: String,
                           val language: String,
                           val title: String,
-)
+                          var favourite: Boolean)
