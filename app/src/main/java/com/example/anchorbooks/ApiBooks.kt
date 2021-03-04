@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiBooks {
-    @GET ("books")
+    @GET ("db")
     suspend fun fetchAnchorBooks(): Response<ResponseAnchorBooks>
 
     @GET ("bookDetail/{id}")

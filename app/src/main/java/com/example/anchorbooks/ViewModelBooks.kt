@@ -22,9 +22,8 @@ class ViewModelBooks  (application: Application)  : AndroidViewModel(application
     }
     fun getAllDaoAnchorBooks(): LiveData<List<AnchorBooks>> = repository.booksList
 
-    fun getBooksDetail(id: Int)= viewModelScope.launch {
-        repository.getBookDetail(id)
-        }
+    fun getBooksDetail(id: Int): LiveData<List<BooksDetail>> = repository.getBooksDB(id)
+
     fun updateFavouriteBooks(anchorBooks: AnchorBooks) = viewModelScope.launch {
         repository.updateFavouriteBooks(anchorBooks)
 

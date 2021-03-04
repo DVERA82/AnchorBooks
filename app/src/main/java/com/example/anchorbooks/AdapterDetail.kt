@@ -50,11 +50,11 @@ class AdapterDetail : RecyclerView.Adapter<AdapterDetail.DetailVH>() {
             binding.tvAuthor2.text= booksDetail.author
             binding.tvPrice.text= booksDetail.price.toString()
             binding.tvPages.text= booksDetail.pages.toString()
-           /* binding.webView.loadUrl(booksDetail.link)
+            binding.webView.loadUrl(booksDetail.link)
             binding.webView.webViewClient = object : WebViewClient(){}
             val setting: WebSettings = binding.webView.settings
             setting.javaScriptEnabled = true
-            binding.webView.loadUrl(booksDetail.link)*/
+            binding.webView.loadUrl(booksDetail.link)
             itemView.setOnLongClickListener(this)
 
 

@@ -19,7 +19,7 @@ class SecondFragment : Fragment() {
 
     private lateinit var binding: FragmentSecondBinding
     private val viewModel: ViewModelBooks by activityViewModels()
-    var idImage: String = ""
+    var idImage: Int = 0
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,12 @@ class SecondFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments!=null){
+            idImage= requireArguments().getInt("LISTA")
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var  adapter= AdapterDetail()
@@ -36,30 +42,14 @@ class SecondFragment : Fragment() {
         binding.rvDetail.layoutManager = GridLayoutManager(context,1)
 
 
-     /* viewModel.getBooksDetail().observer(viewLifecycleOwner, Observer<> {
-            it?.let {
-                Log.d("LISTADO IMAGE",it.toString())
-                adapter.update(it)
-
-            }
-        })
-        adapter.selectedItemDetail().observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it.favourite) {
-                    it.favourite = false
-                    viewModel.updateFavouriteBooks(it)
-                    Toast.makeText(context, "ya no es favorito", Toast.LENGTH_LONG).show()
-                }else {
+     viewModel.getBooksDetail(idImage).observe(viewLifecycleOwner, Observer {
+         it?.let{
+             adapter.update(it)
+         }
+     })
 
 
-                    it.favourite = true
-                    viewModel.updateFavouriteBooks(it)
-                    Toast.makeText(context, "añadido a fav", Toast.LENGTH_LONG).show()
-                }
 
-
-            }
-        })*/
 
     }
 }

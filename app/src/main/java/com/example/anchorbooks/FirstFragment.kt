@@ -35,16 +35,14 @@ class FirstFragment : Fragment() {
 
         viewModelBooks.booksLiveDataFromDB.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let{
-                Log.d("List Books",it.toString())
                 adapter.update(it)
-
             }
         })
 
         adapter.selectedItem().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let{
                 val bundle= Bundle()
-                bundle.putString("LISTA","${it.id}")
+                bundle.putInt("LISTA",it.id)
                 viewModelBooks.getBooksDetail(it.id)
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment,bundle)
             }

@@ -2,7 +2,7 @@ package com.example.anchorbooks
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseAnchorBooks( val list: List<DataClassBooks>)
+data class ResponseAnchorBooks(@SerializedName("books") val list: List<DataClassBooks>)
 
 data class ResponseBookDetail ( @SerializedName("id") val id: Int,
                                 @SerializedName("author") val author: String,
