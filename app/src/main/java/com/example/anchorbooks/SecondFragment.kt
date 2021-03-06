@@ -1,5 +1,8 @@
 package com.example.anchorbooks
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +23,7 @@ class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
     private val viewModel: ViewModelBooks by activityViewModels()
     var idImage: Int = 0
+    var title: String = ""
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +37,7 @@ class SecondFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (arguments!=null){
             idImage= requireArguments().getInt("LISTA")
+            title= requireArguments().getString("Title","")
         }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,14 +47,33 @@ class SecondFragment : Fragment() {
         binding.rvDetail.layoutManager = GridLayoutManager(context,1)
 
 
-     viewModel.getBooksDetail(idImage).observe(viewLifecycleOwner, Observer {
+     viewModel.returnBooksDetail(idImage).observe(viewLifecycleOwner, Observer {
          it?.let{
              adapter.update(it)
          }
      })
-
-
-
+     binding.fabComprar.setOnClickListener {
+      sendEmail()
+     }
 
     }
+
+    fun sendEmail() {
+        val para = arrayOf("ventas@anchorBooks.cl")
+        val copia = arrayOf("")
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.data = Uri.parse("mailto:")
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, para)
+        emailIntent.putExtra(Intent.EXTRA_CC, copia)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.asunto, title,idImage))
+        emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.texto, title, idImage))
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Enviar email..."))
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(context,
+                "No tienes clientes de email instalados.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

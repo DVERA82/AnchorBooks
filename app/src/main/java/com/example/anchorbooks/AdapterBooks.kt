@@ -12,11 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.anchorbooks.databinding.ItemListBookBinding
 import kotlin.math.log
 
-class AdapterBooks : RecyclerView.Adapter<AdapterBooks.BooksVH> () {
+    class AdapterBooks : RecyclerView.Adapter<AdapterBooks.BooksVH> () {
 
-    private var listAdapterBooks = listOf<AnchorBooks>()
+        private var listAdapterBooks = listOf<AnchorBooks>()
 
-    private var selectedItem = MutableLiveData<AnchorBooks>()
+        private var selectedItem = MutableLiveData<AnchorBooks>()
 
     fun selectedItem():LiveData<AnchorBooks> = selectedItem
 

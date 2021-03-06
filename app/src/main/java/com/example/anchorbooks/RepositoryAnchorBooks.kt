@@ -81,9 +81,8 @@ class RepositoryAnchorBooks (private val dao: DaoAnchorBooks) {
 
     }
 
-    fun getBooksDB(id: Int): LiveData<List<BooksDetail>> {
-        return dao.getBookDetail(id)
-    }
+    fun getBooksDB(id: Int): LiveData<List<BooksDetail>> = dao.getBookDetail(id)
+
     suspend fun updateFavouriteBooks(anchorBooks: AnchorBooks) {
         dao.updateAnchorBooks(anchorBooks)
     }

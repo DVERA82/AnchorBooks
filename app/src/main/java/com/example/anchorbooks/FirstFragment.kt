@@ -43,6 +43,8 @@ class FirstFragment : Fragment() {
             it?.let{
                 val bundle= Bundle()
                 bundle.putInt("LISTA",it.id)
+                bundle.putString("Title",it.title)
+
                 viewModelBooks.getBooksDetail(it.id)
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment,bundle)
             }
